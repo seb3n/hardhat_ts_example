@@ -64,28 +64,28 @@ describe('Item', async () => {
     });
   });
 
-  describe('URI storage utilities', async () => {
-    let node = ipfs.create();
-    it('can add data to IPFS', async () => {
-      const { cid } = await node.add(data);
-      // console.info(cid)
-      expect(cid).is.not.empty;
-    });
-    it('can add IPFS URI to item', async () => {
-      await itemContract.safeMint(alice.address);
-    });
-    it('can get data from IPFS', async () => {
-      await itemContract.tokenURI;
-      let cid = 'QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A';
-      let data = '';
-      const stream = node.cat(cid);
-      for await (const chunk of stream) {
-        data += chunk.toString();
-      }
-      // console.log(data)
-      expect(data).is.not.empty;
-    });
-  });
+  // describe('URI storage utilities', async () => {
+  //   let node = ipfs.create();
+  //   it('can add data to IPFS', async () => {
+  //     const { cid } = await node.add(data);
+  //     // console.info(cid)
+  //     expect(cid).is.not.empty;
+  //   });
+  //   it('can add IPFS URI to item', async () => {
+  //     await itemContract.safeMint(alice.address);
+  //   });
+  //   it('can get data from IPFS', async () => {
+  //     await itemContract.tokenURI;
+  //     let cid = 'QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A';
+  //     let data = '';
+  //     const stream = node.cat(cid);
+  //     for await (const chunk of stream) {
+  //       data += chunk.toString();
+  //     }
+  //     // console.log(data)
+  //     expect(data).is.not.empty;
+  //   });
+  // });
   describe('Chain scan data retrieval', async () => {
     it('should see history of all transactions of past burned item', async () => {
       // create item, transfer ownership, transfer ownership, burn it
