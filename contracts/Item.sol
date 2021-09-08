@@ -14,19 +14,18 @@ contract Item is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
 
     constructor() ERC721("Item", "ITM") {}
 
-    // function addItem(address to, string memory tokenURI)
-    //     public
-    //     onlyOwner
-    //     returns (uint256)
-    // {
-    //     uint256 newItemId = _tokenIdCounter.current();
-    //     safeMint(to);
-    //     _setTokenURI(tokenURI)
-    //     return newItemId;
-    // }
+    function addItem(address to, string memory newTokenURI)
+        public
+        onlyOwner
+        returns (uint256)
+    {
+        uint256 newItemId = _tokenIdCounter.current();
+        safeMint(to);
+        _setTokenURI(newItemId, newTokenURI);
+        return newItemId;
+    }
 
-    function safeMint(address to) public onlyOwner {
-        // TODO - make internal
+    function safeMint(address to) internal onlyOwner {
         _safeMint(to, _tokenIdCounter.current());
         _tokenIdCounter.increment();
     }
