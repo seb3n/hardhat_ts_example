@@ -5,8 +5,9 @@ import { HardhatUserConfig } from "hardhat/types";
 
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
+// import "hardhat-packager"
 // import "@nomiclabs/hardhat-etherscan";
-import "solidity-coverage";
+// import "solidity-coverage";
 
 
 // const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
