@@ -11,6 +11,7 @@
     "@types/node": "^16.7.10",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
+    "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.6",
     "hardhat": "^2.6.2",
     "ipfs-core": "^0.10.5",
