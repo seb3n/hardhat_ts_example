@@ -1,4 +1,5 @@
 {
+    "eslint.options": { "configFile": "../.eslintrc.json" },
     "editor.defaultFormatter": null,
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
