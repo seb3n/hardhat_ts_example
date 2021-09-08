@@ -1,10 +1,13 @@
-import { config as dotEnvConfig } from 'dotenv';
-dotEnvConfig();
+// import { config as dotEnvConfig } from 'dotenv';
+// dotEnvConfig();
+require('dotenv').config();
 
 import { HardhatUserConfig } from 'hardhat/types';
 
-import '@nomiclabs/hardhat-waffle';
+// Plugins
 import '@typechain/hardhat';
+import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-waffle';
 
 // const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 // const RINKEBY_PRIVATE_KEY =
