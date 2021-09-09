@@ -63,33 +63,30 @@ describe('Item', async () => {
     });
   });
 
-  describe('URI storage utilities', async () => {
-    const node = await ipfs.create();
-    it('can add data to IPFS', async () => {
-      const data = 'poop nugget!';
-      const { cid } = await node.add(data);
-      // console.info(cid)
+  describe('URI storage utilities', () => {
+    it('can add IPFS URI to item', async () => {
+      const node = await ipfs.create();
+      let { cid } = await node.add('some new item');
+      let newItemId = await itemContract.addItem(alice.address, cid.toString());
       expect(cid).is.not.empty;
     });
-    // it('can add IPFS URI to item', async () => {
-    //   await itemContract.addItem(alice.address, ipfsCid);
-    // });
-    // it('can get data from IPFS', async () => {
-    //   await itemContract.tokenURI;
-    //   let data = '';
-    //   const stream = node.cat(ipfsCid);
-    //   for await (const chunk of stream) {
-    //     data += chunk.toString();
-    //   }
-    //   // console.log(data)
-    //   expect(data).is.not.empty;
-    // });
-  });
-
-  describe('Chain scan data retrieval', async () => {
-    it('should see history of all transactions of past burned item', async () => {
-      // create item, transfer ownership, transfer ownership, burn it
-      // check to make sure you can see/query that items lifespan
+    it('can get data from IPFS', async () => {
+      let uri = await itemContract.tokenURI;
+      let data = '';
+      const node = await ipfs.create();
+      const stream = node.cat(cid);
+      for await (const chunk of stream) {
+        data += chunk.toString();
+      }
+      console.log(data);
+      expect(data).is.not.empty;
     });
   });
+
+  // describe('Chain scan data retrieval', async () => {
+  //   it('should see history of all transactions of past burned item', async () => {
+  //     // create item, transfer ownership, transfer ownership, burn it
+  //     // check to make sure you can see/query that items lifespan
+  //   });
+  // });
 });
