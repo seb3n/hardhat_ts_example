@@ -2,7 +2,6 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import { BigNumber } from 'ethers';
 import { ethers } from 'hardhat';
-import ipfs from 'ipfs-core';
 import { Item__factory, Item } from '../typechain';
 
 describe('Item', async () => {
@@ -64,29 +63,11 @@ describe('Item', async () => {
   });
 
   describe('URI storage utilities', () => {
-    it('can add IPFS URI to item', async () => {
-      const node = await ipfs.create();
-      let { cid } = await node.add('some new item');
-      let newItemId = await itemContract.addItem(alice.address, cid.toString());
-      expect(cid).is.not.empty;
-    });
-    it('can get data from IPFS', async () => {
-      let uri = await itemContract.tokenURI;
-      let data = '';
-      const node = await ipfs.create();
-      const stream = node.cat(cid);
-      for await (const chunk of stream) {
-        data += chunk.toString();
-      }
-      console.log(data);
-      expect(data).is.not.empty;
+    it('can get IPFS URI from item', async () => {
+      let tx = await itemContract.addItem(alice.address, ipfsCid);
+      let newItemId = await tx.wait();
+      let uri = await itemContract.tokenURI(newItemId);
+      expect(ipfsCid).to.be.equal(uri);
     });
   });
-
-  // describe('Chain scan data retrieval', async () => {
-  //   it('should see history of all transactions of past burned item', async () => {
-  //     // create item, transfer ownership, transfer ownership, burn it
-  //     // check to make sure you can see/query that items lifespan
-  //   });
-  // });
 });
